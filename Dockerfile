@@ -3,11 +3,20 @@ LABEL Purpose:  Kali with XRDP (for CTFs)
 LABEL Author:   daemonchild
 LABEL Tag:      daemonchild/kali-xrdp
 LABEL Version:  v0.2
-WORKDIR /root
-COPY scripts/build-kali-base.sh /root/scripts/
-RUN /bin/bash /root/scripts/build-kali-base.sh
-COPY scripts/ /root/scripts/
-RUN /bin/bash /root/scripts/add-xrdp.sh
-RUN /bin/bash /root/scripts/add-user-config.sh
-RUN chmod +x /root/scripts/daemonchild-kali-xrdp-container.sh
-ENTRYPOINT ["/root/scripts/daemonchild-kali-xrdp-container.sh"]
+EXPOSE 8080
+ENV    GUACAMOLE_HOME="/etc/guacamole"
+ENV    RES "1920x1080"
+WORKDIR /etc/guacamole
+# Install locale and set
+RUN apt-get update &&            \
+    apt-get install -y           \
+      locales &&                 \
+    apt-get clean &&             \
+    rm -rf /var/lib/apt/lists/*
+# Before installing desktop, set the locale to UTF-8
+# see https://stackoverflow.com/questions/28405902/how-to-set-the-locale-inside-a-ubuntu-docker-container
+RUN sed -i -e 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_GB.UTF-8
+ENV LANGUAGE en_GB:en
+ENV LC_ALL en_GB.UTF-8
