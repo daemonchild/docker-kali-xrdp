@@ -20,3 +20,24 @@ RUN sed -i -e 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen && \
 ENV LANG en_GB.UTF-8
 ENV LANGUAGE en_GB:en
 ENV LC_ALL en_GB.UTF-8
+RUN apt-get update &&            \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+      # Install remaining dependencies, tools, and XFCE desktop
+      bash-completion  \
+      openssh-server   \
+      sudo             \
+#      tomcat8          \
+      vim              \
+      wget             \
+      curl              \
+      xfce4            \
+#      xfce4-goodies    \
+      xauth            \
+      xrdp              \
+      dbus-x11          \
+      # install libvncserver depencies
+      libvncserver-dev \
+      gtk2.0       &&  \
+    apt-get clean &&             \
+    rm -rf /var/lib/apt/lists/*
+  
