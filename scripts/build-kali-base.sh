@@ -43,8 +43,9 @@ echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
 
 
 # Install Kali Entire
-echo "[Installing Full Kali]"
+echo "[Installing Full Upgrade]"
 DEBIAN_FRONTEND=noninteractive apt full-upgrade -y
+echo "[Installing Full Kali]"
 DEBIAN_FRONTEND=noninteractive apt install -y kali-linux-default
 
 
