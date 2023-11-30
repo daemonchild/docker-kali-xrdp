@@ -10,7 +10,7 @@ WORKDIR /etc/guacamole
 # Install locale and set
 RUN apt-get update &&            \
     apt-get install -y           \
-      locales &&                 \
+      apt-utils locales &&                 \
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
 # Before installing desktop, set the locale to UTF-8
@@ -35,9 +35,40 @@ RUN apt-get update &&            \
       xauth            \
       xrdp              \
       dbus-x11          \
+      build-essential \
       # install libvncserver depencies
       libvncserver-dev \
       gtk2.0       &&  \
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
-  
+# Download necessary Guacamole files
+RUN rm -rf /var/lib/tomcat8/webapps/ROOT && \
+    wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.0.0/binary/guacamole-1.0.0.war" -O /var/lib/tomcat8/webapps/ROOT.war && \
+    wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.0.0/source/guacamole-server-1.0.0.tar.gz" -O /etc/guacamole/guacamole-server-1.0.0.tar.gz && \
+    tar xvf /etc/guacamole/guacamole-server-1.0.0.tar.gz && \
+    cd /etc/guacamole/guacamole-server-1.0.0 && \
+   ./configure --with-init-dir=/etc/init.d &&   \
+    make CC=gcc-6 &&                            \
+    make install &&                             \
+    ldconfig &&                                 \
+    rm -r /etc/guacamole/guacamole-server-1.0.0*
+# Create Guacamole configurations
+RUN echo "user-mapping: /etc/guacamole/user-mapping.xml" > /etc/guacamole/guacamole.properties && \
+    touch /etc/guacamole/user-mapping.xml
+# Create user account with password-less sudo abilities
+RUN useradd -s /bin/bash -g 100 -G sudo -m user && \
+    /usr/bin/printf '%s\n%s\n' 'password' 'password'| passwd user && \
+    echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+# Remove keyboard shortcut to allow bash_completion in xfce4-terminal
+RUN echo "DISPLAY=:1 xfconf-query -c xfce4-keyboard-shortcuts -p \"/xfwm4/custom/<Super>Tab\" -r" >> /home/user/.bashrc
+# Entry point script
+COPY scripts/daemonchild-kali-xrdp-container.sh /root/daemonchild-kali-xrdp-container.sh
+RUN chmod +x /root/daemonchild-kali-xrdp-container.sh
+USER 1000:100
+
+# copy and untar the default xfce4 config so that we don't get an annoying startup dialog
+COPY xfce4-default-config.tgz /home/user/xfce4-default-config.tgz
+RUN mkdir -p /home/user/.config/xfce4/ && \
+    tar -C /home/user/.config/xfce4/ --strip-components=1 -xvzf /home/user/xfce4-default-config.tgz && \
+    rm -f /home/user/xfce4-default-config.tgz
+ENTRYPOINT ["sudo", "/bin/bash", "/root/daemonchild-kali-xrdp-container.sh"]
