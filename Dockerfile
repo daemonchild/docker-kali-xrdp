@@ -76,14 +76,8 @@ RUN echo "DISPLAY=:1 xfconf-query -c xfce4-keyboard-shortcuts -p \"/xfwm4/custom
 # Entry point script
 COPY scripts/daemonchild-kali-xrdp-container.sh /root/daemonchild-kali-xrdp-container.sh
 RUN chmod +x /root/daemonchild-kali-xrdp-container.sh
-USER 1000:100
-# copy and untar the default xfce4 config so that we don't get an annoying startup dialog
-#COPY xfce4-default-config.tgz /home/user/xfce4-default-config.tgz
-#RUN mkdir -p /home/user/.config/xfce4/ && \
-#    tar -C /home/user/.config/xfce4/ --strip-components=1 -xvzf /home/user/xfce4-default-config.tgz && \
-#    rm -f /home/user/xfce4-default-config.tgz
 # Install kali tooling packages
-RUN sudo apt-get update &&            \
+RUN  apt-get update &&            \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
       kali-linux-core \
       kali-linux-wsl \
@@ -96,4 +90,5 @@ RUN sudo apt-get update &&            \
       kali-tools-web && \ 
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
+USER 1000:100
 ENTRYPOINT ["sudo", "/bin/bash", "/root/daemonchild-kali-xrdp-container.sh"]
