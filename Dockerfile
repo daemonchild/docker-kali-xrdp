@@ -36,7 +36,6 @@ RUN apt-get update &&            \
       xrdp              \
       dbus-x11          \
       build-essential \
-      kali-tools-top10 \
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
 #Install Tomcat8
@@ -74,4 +73,10 @@ USER 1000:100
 #RUN mkdir -p /home/user/.config/xfce4/ && \
 #    tar -C /home/user/.config/xfce4/ --strip-components=1 -xvzf /home/user/xfce4-default-config.tgz && \
 #    rm -f /home/user/xfce4-default-config.tgz
+# Install kali tooling packages
+RUN apt-get update &&            \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+      kali-linux-core \
+    apt-get clean &&             \
+    rm -rf /var/lib/apt/lists/*
 ENTRYPOINT ["sudo", "/bin/bash", "/root/daemonchild-kali-xrdp-container.sh"]
