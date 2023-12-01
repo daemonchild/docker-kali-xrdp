@@ -22,8 +22,8 @@ echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
 # Install Kali Entire
 echo "[Installing Full Upgrade]"
 DEBIAN_FRONTEND=noninteractive apt full-upgrade -y
-echo "[Installing Full Kali]"
-DEBIAN_FRONTEND=noninteractive apt install -y kali-linux-default
+echo "[Installing More Into]"
+DEBIAN_FRONTEND=noninteractive apt install -y kali-tools-top10
 
 # Kali needs a language, or we end up with C.UTF-8.
 
