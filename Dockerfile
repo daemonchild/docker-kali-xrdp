@@ -36,6 +36,13 @@ RUN apt-get update &&            \
       xrdp              \
       dbus-x11          \
       build-essential && \
+      # Guacamole
+      libossp-uuid-dev           \
+      libpng-dev                 \
+      libpango1.0-dev            \
+      libssh2-1-dev              \
+      libssl-dev                 \
+      libtasn1-bin               \
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
 #Install Tomcat8
