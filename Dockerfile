@@ -43,7 +43,7 @@ RUN apt-get update &&            \
     rm -rf /var/lib/apt/lists/*
 #Install Tomcat8
 WORKDIR /root    
-RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.96.tar.gz -O /root/tomcat8/apache-tomcat-8.5.96.tar.gz && \
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.96.tar.gz -O /root/apache-tomcat-8.5.96.tar.gz && \
     mkdir -p /opt/tomcat8/ && \ 
     tar xvzf /root/apache-tomcat*.tar.gz -C /opt/tomcat8/
 # Download necessary Guacamole files
