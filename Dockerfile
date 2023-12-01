@@ -36,9 +36,7 @@ RUN apt-get update &&            \
       xrdp              \
       dbus-x11          \
       build-essential \
-      # install libvncserver depencies
-      libvncserver-dev \
-      gtk2.0       &&  \
+      kali-tools-top10 \
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
 #Install Tomcat8
