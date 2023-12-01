@@ -83,7 +83,7 @@ USER 1000:100
 #    tar -C /home/user/.config/xfce4/ --strip-components=1 -xvzf /home/user/xfce4-default-config.tgz && \
 #    rm -f /home/user/xfce4-default-config.tgz
 # Install kali tooling packages
-RUN apt-get update &&            \
+RUN sudo apt-get update &&            \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
       kali-linux-core \
       kali-linux-wsl \
