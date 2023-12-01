@@ -35,7 +35,7 @@ RUN apt-get update &&            \
       xauth            \
       xrdp              \
       dbus-x11          \
-      build-essential \
+      build-essential && \
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
 #Install Tomcat8
@@ -84,7 +84,7 @@ RUN apt-get update &&            \
       kali-tools-exploitation \
       kali-tools-information-gathering \
       kali-tools-passwords \
-      kali-tools-web \
+      kali-tools-web && \ 
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
 ENTRYPOINT ["sudo", "/bin/bash", "/root/daemonchild-kali-xrdp-container.sh"]
