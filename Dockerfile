@@ -77,6 +77,14 @@ USER 1000:100
 RUN apt-get update &&            \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
       kali-linux-core \
+      kali-linux-wsl \
+      kali-linux-headless \
+      kali-tools-crypto-stego \
+      kali-tools-database \
+      kali-tools-exploitation \
+      kali-tools-information-gathering \
+      kali-tools-passwords \
+      kali-tools-web \
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
 ENTRYPOINT ["sudo", "/bin/bash", "/root/daemonchild-kali-xrdp-container.sh"]
