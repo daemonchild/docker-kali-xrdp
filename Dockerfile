@@ -22,7 +22,6 @@ ENV LANGUAGE en_GB:en
 ENV LC_ALL en_GB.UTF-8
 RUN apt-get update &&            \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-      # Basic dependencies
       software-properties-common \
       libcairo2-dev              \
       libossp-uuid-dev           \
@@ -48,7 +47,9 @@ RUN apt-get update &&            \
       xauth            \
       xrdp              \
       dbus-x11          \
-      build-essential && \
+      build-essential \ 
+      openjdk-17-jdk \ 
+      openjdk-17-jre&& \
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
 #Install Tomcat8
@@ -59,11 +60,13 @@ RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.
 # Download necessary Guacamole files
 WORKDIR /etc/guacamole
 RUN rm -rf /opt/tomcat8/webapps/ROOT && \
-    wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/binary/guacamole-auth-sso-1.5.3.tar.gz?action=download" -O /opt/tomcat8/webapps/ROOT.war && \
+    wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/binary/guacamole-1.5.3.war?action=download" -O /opt/tomcat8/webapps/ROOT.war && \
     wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/source/guacamole-server-1.5.3.tar.gz?action=download" -O /etc/guacamole/guacamole-server.tar.gz 
 # Create Guacamole configurations
-RUN echo "user-mapping: /etc/guacamole/user-mapping.xml" > /etc/guacamole/guacamole.properties && \
-    touch /etc/guacamole/user-mapping.xml
+RUN touch /etc/guacamole/user-mapping.xml && \ 
+    echo "user-mapping: /etc/guacamole/user-mapping.xml" > /etc/guacamole/guacamole.properties && \  
+    echo "guacd-hostname: localhost" >> /etc/guacamole/guacamole.properties && \
+    echo "guacd-port: 4822" >> /etc/guacamole/guacamole.properties 
 # Create user account with password-less sudo abilities
 RUN useradd -s /bin/bash -g 100 -G sudo -m user && \
     /usr/bin/printf '%s\n%s\n' 'password' 'password'| passwd user && \
