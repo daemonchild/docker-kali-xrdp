@@ -27,6 +27,7 @@ RUN apt-get update &&            \
       libcairo2-dev              \
       libossp-uuid-dev           \
       libpng-dev                 \
+      libjpeg-dev                 \
       libpango1.0-dev            \
       libssh2-1-dev              \
       libssl-dev                 \
