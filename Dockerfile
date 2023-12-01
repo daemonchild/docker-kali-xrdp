@@ -23,12 +23,17 @@ ENV LC_ALL en_GB.UTF-8
 RUN apt-get update &&            \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
       # Basic dependencies
+      software-properties-common \
+      libcairo2-dev              \
       libossp-uuid-dev           \
       libpng-dev                 \
       libpango1.0-dev            \
       libssh2-1-dev              \
       libssl-dev                 \
       libtasn1-bin               \
+      libvorbis-dev              \
+      libwebp-dev                \
+      libpulse-dev               \
       # Install remaining dependencies, tools, and XFCE desktop
       bash-completion  \
       openssh-server   \
