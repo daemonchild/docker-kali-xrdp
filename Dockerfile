@@ -59,15 +59,8 @@ RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.
 # Download necessary Guacamole files
 WORKDIR /etc/guacamole
 RUN rm -rf /opt/tomcat8/webapps/ROOT && \
-    wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.4.0/binary/guacamole-1.4.0.war" -O /opt/tomcat8/webapps/ROOT.war && \
-    wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.4.0/source/guacamole-server-1.4.0.tar.gz" -O /etc/guacamole/guacamole-server-1.4.0.tar.gz && \
-    tar xvf /etc/guacamole/guacamole-server-1.4.0.tar.gz && \
-    cd /etc/guacamole/guacamole-server-1.4.0 && \
-   ./configure --with-init-dir=/etc/init.d &&   \
-    make CC=gcc &&                            \
-    make install &&                             \
-    ldconfig &&                                 \
-    rm -r /etc/guacamole/guacamole-server-1.4.0*
+    wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/binary/guacamole-auth-sso-1.5.3.tar.gz?action=download" -O /opt/tomcat8/webapps/ROOT.war && \
+    wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/source/guacamole-server-1.5.3.tar.gz?action=download" -O /etc/guacamole/guacamole-server.tar.gz && \
 # Create Guacamole configurations
 RUN echo "user-mapping: /etc/guacamole/user-mapping.xml" > /etc/guacamole/guacamole.properties && \
     touch /etc/guacamole/user-mapping.xml
