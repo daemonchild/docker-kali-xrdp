@@ -77,18 +77,18 @@ RUN echo "DISPLAY=:1 xfconf-query -c xfce4-keyboard-shortcuts -p \"/xfwm4/custom
 COPY scripts/daemonchild-kali-xrdp-container.sh /root/daemonchild-kali-xrdp-container.sh
 RUN chmod +x /root/daemonchild-kali-xrdp-container.sh
 # Install kali tooling packages
-RUN  apt-get update &&            \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-      kali-linux-core \
-      kali-linux-wsl \
-      kali-linux-headless \
-      kali-tools-crypto-stego \
-      kali-tools-database \
-      kali-tools-exploitation \
-      kali-tools-information-gathering \
-      kali-tools-passwords \
-      kali-tools-web && \ 
-    apt-get clean &&             \
-    rm -rf /var/lib/apt/lists/*
+#RUN  apt-get update &&            \
+#    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+#      kali-linux-core \
+#      kali-linux-wsl \
+#      kali-linux-headless \
+#      kali-tools-crypto-stego \
+#      kali-tools-database \
+#      kali-tools-exploitation \
+#      kali-tools-information-gathering \
+#      kali-tools-passwords \
+#      kali-tools-web && \ 
+#    apt-get clean &&             \
+#    rm -rf /var/lib/apt/lists/*
 USER 1000:100
 ENTRYPOINT ["sudo", "/bin/bash", "/root/daemonchild-kali-xrdp-container.sh"]
