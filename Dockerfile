@@ -50,7 +50,7 @@ RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.
 WORKDIR /etc/guacamole
 RUN rm -rf /opt/tomcat8/webapps/ROOT && \
     wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.4.0/binary/guacamole-1.4.0.war" -O /opt/tomcat8/webapps/ROOT.war && \
-    wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.4.0/source/guacamole-server-1.4.0.tar.gz" -O /etc/guacamole/guacamole-server-1.0.0.tar.gz && \
+    wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.4.0/source/guacamole-server-1.4.0.tar.gz" -O /etc/guacamole/guacamole-server-1.4.0.tar.gz && \
     tar xvf /etc/guacamole/guacamole-server-1.4.0.tar.gz && \
     cd /etc/guacamole/guacamole-server-1.4.0 && \
    ./configure --with-init-dir=/etc/init.d &&   \
