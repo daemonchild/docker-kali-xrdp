@@ -8,4 +8,6 @@ echo [Kali Linux - XRDP Enabled]
 echo [Listening on 3389/tcp]
 /usr/sbin/xrdp
 /usr/sbin/xrdp-sesman
+/opt/tomcat8/bin/startup.sh
+/usr/local/sbin/guacd
 sleep infinity
