@@ -45,7 +45,7 @@ RUN apt-get update &&            \
 WORKDIR /root    
 RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.96.tar.gz -O /root/apache-tomcat-8.5.96.tar.gz && \
     tar xvzf /root/apache-tomcat*.tar.gz -C /opt/ && \
-    ln -s /opt/apache-tomcat-8.5.96 /opt/tomcat8 && \ 
+    ln -s /opt/apache-tomcat-8.5.96 /opt/tomcat8 
 # Download necessary Guacamole files
 WORKDIR /etc/guacamole
 RUN rm -rf /opt/tomcat8/webapps/ROOT && \
