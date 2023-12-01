@@ -42,6 +42,7 @@ RUN apt-get update &&            \
       vim              \
       wget             \
       curl              \
+      net-tools     \
       xfce4            \
       xfce4-goodies    \
       xauth            \
@@ -86,6 +87,7 @@ RUN chmod +x /root/daemonchild-kali-xrdp-container.sh
 # Install kali tooling packages
 #RUN  apt-get update &&            \
 #    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+#      cowsay \
 #      kali-linux-core \
 #      kali-linux-wsl \
 #      kali-linux-headless \
