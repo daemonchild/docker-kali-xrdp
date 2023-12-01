@@ -22,6 +22,13 @@ ENV LANGUAGE en_GB:en
 ENV LC_ALL en_GB.UTF-8
 RUN apt-get update &&            \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
+      # Basic dependencies
+      libossp-uuid-dev           \
+      libpng-dev                 \
+      libpango1.0-dev            \
+      libssh2-1-dev              \
+      libssl-dev                 \
+      libtasn1-bin               \
       # Install remaining dependencies, tools, and XFCE desktop
       bash-completion  \
       openssh-server   \
@@ -31,18 +38,11 @@ RUN apt-get update &&            \
       wget             \
       curl              \
       xfce4            \
-#      xfce4-goodies    \
+      xfce4-goodies    \
       xauth            \
       xrdp              \
       dbus-x11          \
       build-essential && \
-      # Guacamole
-      libossp-uuid-dev           \
-      libpng-dev                 \
-      libpango1.0-dev            \
-      libssh2-1-dev              \
-      libssl-dev                 \
-      libtasn1-bin               \
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
 #Install Tomcat8
