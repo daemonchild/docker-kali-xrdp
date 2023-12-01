@@ -49,15 +49,15 @@ RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.
 # Download necessary Guacamole files
 WORKDIR /etc/guacamole
 RUN rm -rf /opt/tomcat8/webapps/ROOT && \
-    wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.0.0/binary/guacamole-1.0.0.war" -O /opt/tomcat8/webapps/ROOT.war && \
-    wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.0.0/source/guacamole-server-1.0.0.tar.gz" -O /etc/guacamole/guacamole-server-1.0.0.tar.gz && \
-    tar xvf /etc/guacamole/guacamole-server-1.0.0.tar.gz && \
-    cd /etc/guacamole/guacamole-server-1.0.0 && \
+    wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.4.0/binary/guacamole-1.4.0.war" -O /opt/tomcat8/webapps/ROOT.war && \
+    wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.4.0/source/guacamole-server-1.4.0.tar.gz" -O /etc/guacamole/guacamole-server-1.0.0.tar.gz && \
+    tar xvf /etc/guacamole/guacamole-server-1.4.0.tar.gz && \
+    cd /etc/guacamole/guacamole-server-1.4.0 && \
    ./configure --with-init-dir=/etc/init.d &&   \
-    make CC=gcc-6 &&                            \
+    make CC=gcc &&                            \
     make install &&                             \
     ldconfig &&                                 \
-    rm -r /etc/guacamole/guacamole-server-1.0.0*
+    rm -r /etc/guacamole/guacamole-server-1.4.0*
 # Create Guacamole configurations
 RUN echo "user-mapping: /etc/guacamole/user-mapping.xml" > /etc/guacamole/guacamole.properties && \
     touch /etc/guacamole/user-mapping.xml
