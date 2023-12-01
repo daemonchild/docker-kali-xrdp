@@ -61,7 +61,14 @@ RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.
 WORKDIR /etc/guacamole
 RUN rm -rf /opt/tomcat8/webapps/ROOT && \
     wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/binary/guacamole-1.5.3.war?action=download" -O /opt/tomcat8/webapps/ROOT.war && \
-    wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/source/guacamole-server-1.5.3.tar.gz?action=download" -O /etc/guacamole/guacamole-server.tar.gz 
+    wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/source/guacamole-server-1.5.3.tar.gz?action=download" -O /etc/guacamole/guacamole-server.tar.gz && \
+    tar xvf /etc/guacamole/guacamole-server.tar.gz && \
+    cd /etc/guacamole/guacamole-server* && \
+   ./configure --with-init-dir=/etc/init.d &&   \
+    make CC=gcc &&                            \
+    make install &&                             \
+    ldconfig &&                                 \
+    rm -r /etc/guacamole/guacamole-server*
 # Create Guacamole configurations
 RUN touch /etc/guacamole/user-mapping.xml && \ 
     echo "user-mapping: /etc/guacamole/user-mapping.xml" > /etc/guacamole/guacamole.properties && \  
