@@ -6,7 +6,7 @@ LABEL Version:  v0.2
 EXPOSE 8080
 ENV    GUACAMOLE_HOME="/etc/guacamole"
 ENV    RES "1920x1080"
-WORKDIR /etc/guacamole
+
 # Install locale and set
 RUN apt-get update &&            \
     apt-get install -y           \
@@ -41,7 +41,13 @@ RUN apt-get update &&            \
       gtk2.0       &&  \
     apt-get clean &&             \
     rm -rf /var/lib/apt/lists/*
+#Install Tomcat8
+WORKDIR /root    
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.96.tar.gz -O /root/tomcat8/apache-tomcat-8.5.96.tar.gz && \
+    mkdir -p /opt/tomcat8/ && \ 
+    tar xvzf /root/apache-tomcat*.tar.gz -C /opt/tomcat8/
 # Download necessary Guacamole files
+WORKDIR /etc/guacamole
 RUN rm -rf /var/lib/tomcat8/webapps/ROOT && \
     wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.0.0/binary/guacamole-1.0.0.war" -O /var/lib/tomcat8/webapps/ROOT.war && \
     wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/1.0.0/source/guacamole-server-1.0.0.tar.gz" -O /etc/guacamole/guacamole-server-1.0.0.tar.gz && \
@@ -65,7 +71,6 @@ RUN echo "DISPLAY=:1 xfconf-query -c xfce4-keyboard-shortcuts -p \"/xfwm4/custom
 COPY scripts/daemonchild-kali-xrdp-container.sh /root/daemonchild-kali-xrdp-container.sh
 RUN chmod +x /root/daemonchild-kali-xrdp-container.sh
 USER 1000:100
-
 # copy and untar the default xfce4 config so that we don't get an annoying startup dialog
 COPY xfce4-default-config.tgz /home/user/xfce4-default-config.tgz
 RUN mkdir -p /home/user/.config/xfce4/ && \
