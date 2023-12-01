@@ -60,7 +60,7 @@ RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.
 WORKDIR /etc/guacamole
 RUN rm -rf /opt/tomcat8/webapps/ROOT && \
     wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/binary/guacamole-auth-sso-1.5.3.tar.gz?action=download" -O /opt/tomcat8/webapps/ROOT.war && \
-    wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/source/guacamole-server-1.5.3.tar.gz?action=download" -O /etc/guacamole/guacamole-server.tar.gz && \
+    wget "https://apache.org/dyn/closer.lua/guacamole/1.5.3/source/guacamole-server-1.5.3.tar.gz?action=download" -O /etc/guacamole/guacamole-server.tar.gz 
 # Create Guacamole configurations
 RUN echo "user-mapping: /etc/guacamole/user-mapping.xml" > /etc/guacamole/guacamole.properties && \
     touch /etc/guacamole/user-mapping.xml
